@@ -46,50 +46,52 @@ function contapunti(){
                 });
 
                 
-                console.log(gruppo);
-                
                 // Trova i numeri che sono duplicati o triplicati
                 let doppioni = [];
                 let tris = [];
+                let sommasingoli = 0;
                 
+                console.log(contaNumeri);
                 for (let numero in contaNumeri) {
-                    if (contaNumeri[numero] === 2) {
-                        doppioni.push(numero);
-                    } else if (contaNumeri[numero] === 3) {
+                    if (contaNumeri[numero] === 3) {
                         tris.push(numero);
+                    } else if (contaNumeri[numero] === 2) {
+                        doppioni.push(numero);
+                    }else{
+                        sommasingoli += parseInt(numero);
                     }
                 }
 
                 // Stampa i risultati
                 if (doppioni.length > 0) {
                     if(gruppo==="g1"){
-                        punti1 += doppioni.join(', ')*2;
+                        punti1 += doppioni.join(', ')*4; // Aggiungi sommasingoli ai punti con doppioni
                     }
                     if(gruppo==="g2"){
-                        punti2 += doppioni.join(', ')*2;
+                        punti2 += doppioni.join(', ')*4; // Aggiungi sommasingoli ai punti con doppioni
                     }
                 }
 
                 if (tris.length > 0) {
                     if(gruppo==="g1"){
-                        punti1 += tris.join(', ')*3;
+                        punti1 += tris.join(', ')*9;
                     }
                     if(gruppo==="g2"){
-                        punti2 += tris.join(', ')*3;
+                        punti2 += tris.join(', ')*9;
                     }
                 }
 
-                if (doppioni.length === 0 && tris.length === 0) {
+                if (sommasingoli > 0) {
                     if(gruppo==="g1"){
-                        punti1++;
+                        punti1+=sommasingoli;
                     }
                     if(gruppo==="g2"){
-                        punti2++;
+                        punti2+=sommasingoli;
                     }
                 }
                 
             } else {
-                console.log(`Nessun numero assegnato nella ${riga} per il gruppo ${gruppo}`);
+                // Nessun numero assegnato nella riga
                 endgame = true;
             }
         });
@@ -107,6 +109,7 @@ function contapunti(){
     }
     
 }
+
 
 function finegioco(){
     
@@ -219,4 +222,4 @@ function assegnaNumero(elemento) {
 
 
 generaNumero();
-aggiorna()
+aggiorna();
