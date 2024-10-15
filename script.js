@@ -1,5 +1,4 @@
 var currentPlayer = 1;
-var giocate = 1;
 var dado = document.getElementById("dado");
 var numero;
 var giocatore1 = document.getElementById("giocatore1");
@@ -19,7 +18,7 @@ function controllacasellevuote(player){
         } 
     });
     
-    return caselle==9;
+    return caselle===9;
 }
 
 function contapunti(){
@@ -29,8 +28,6 @@ function contapunti(){
     
     let righe = ['r1', 'r2', 'r3'];  // Righe da controllare
     let gruppi = ['g1', 'g2'];  // Gruppi (giocatori)
-
-    giocate = 1;
     
     righe.forEach(riga => {
         gruppi.forEach(gruppo => {
@@ -46,12 +43,12 @@ function contapunti(){
                 });
 
                 
+                
                 // Trova i numeri che sono duplicati o triplicati
                 let doppioni = [];
                 let tris = [];
                 let sommasingoli = 0;
                 
-                console.log(contaNumeri);
                 for (let numero in contaNumeri) {
                     if (contaNumeri[numero] === 3) {
                         tris.push(numero);
@@ -91,14 +88,11 @@ function contapunti(){
                 }
                 
             } else {
-                // Nessun numero assegnato nella riga
                 endgame = true;
             }
         });
     });
     
-    console.log(punti1);
-    console.log(punti2);
                 
     if (punti1 > punti2) {
         winner.textContent = "giocatore1";
@@ -130,8 +124,6 @@ function finegioco(){
     });
         
     if(caselle1==9&&caselle2==9){
-        console.log("contapunti");
-        giocate=0;
         endgame = false;
         contapunti();
     }
@@ -153,7 +145,10 @@ function aggiorna(){
         giocatore1.style.borderColor = "black";
         giocatore2.style.borderColor = "green";
     }
-    controllacasellevuote(currentPlayer);
+    if(controllacasellevuote(currentPlayer)){
+        endgame = false;
+        contapunti();
+    }
     
 }
 
@@ -176,7 +171,6 @@ function assegnaNumero(elemento) {
         document.querySelectorAll(classes).forEach(div => {
                 // Ottieni il testo del div
                 const testo = div.textContent; // o div.innerText
-                console.log(testo); // Mostra il testo nella console
 
                 // Esempio di controllo: se il testo contiene "2"
                 if (testo.includes(numero)) {
@@ -204,7 +198,6 @@ function assegnaNumero(elemento) {
         document.querySelectorAll(classes).forEach(div => {
                 // Ottieni il testo del div
                 const testo = div.textContent; // o div.innerText
-                console.log(testo); // Mostra il testo nella console
 
                 // Esempio di controllo: se il testo contiene "2"
                 if (testo.includes(numero)) {
