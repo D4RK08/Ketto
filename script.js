@@ -46,24 +46,24 @@ function contapunti(){
                 for (let numero in contaNumeri) {
                     if (contaNumeri[numero] === 3) {
                         if(gruppo==="g1"){
-                            punti1 += numero*9; // Aggiungi sommasingoli ai punti con doppioni
+                            punti1 += parseInt(numero)*9; // Aggiungi sommasingoli ai punti con doppioni
                         }
                         if(gruppo==="g2"){
-                            punti2 += numero*9; // Aggiungi sommasingoli ai punti con doppioni
+                            punti2 += parseInt(numero)*9; // Aggiungi sommasingoli ai punti con doppioni
                         }
                     }else if (contaNumeri[numero] === 2) {
                         if(gruppo==="g1"){
-                            punti1 += numero*4; // Aggiungi sommasingoli ai punti con doppioni
+                            punti1 += parseInt(numero)*4; // Aggiungi sommasingoli ai punti con doppioni
                         }
                         if(gruppo==="g2"){
-                            punti2 += numero*4; // Aggiungi sommasingoli ai punti con doppioni
+                            punti2 += parseInt(numero)*4; // Aggiungi sommasingoli ai punti con doppioni
                         }
                     }else{
                         if(gruppo==="g1"){
-                            punti1+=numero;
+                            punti1 += parseInt(numero);
                         }
                         if(gruppo==="g2"){
-                            punti2+=numero;
+                            punti2 += parseInt(numero);
                         }
                     }
                     
