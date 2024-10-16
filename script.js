@@ -8,7 +8,7 @@ var winner = document.getElementById("winner");
 winner.style.display = "none";
 
 function controllacasellevuote(player){
-    
+
     let caselle=0;
     
     const divs1 = document.querySelectorAll('.g'+player);  // seleziona tutti i div con una classe
@@ -19,6 +19,7 @@ function controllacasellevuote(player){
     });
     
     return caselle===9;
+
 }
 
 function contapunti(){
@@ -41,51 +42,32 @@ function contapunti(){
                 numeri.forEach(numero => {
                     contaNumeri[numero] = (contaNumeri[numero] || 0) + 1;
                 });
-
-                
-                
-                // Trova i numeri che sono duplicati o triplicati
-                let doppioni = [];
-                let tris = [];
-                let sommasingoli = 0;
                 
                 for (let numero in contaNumeri) {
                     if (contaNumeri[numero] === 3) {
-                        tris.push(numero);
-                    } else if (contaNumeri[numero] === 2) {
-                        doppioni.push(numero);
+                        if(gruppo==="g1"){
+                            punti1 += numero*9; // Aggiungi sommasingoli ai punti con doppioni
+                        }
+                        if(gruppo==="g2"){
+                            punti2 += numero*9; // Aggiungi sommasingoli ai punti con doppioni
+                        }
+                    }else if (contaNumeri[numero] === 2) {
+                        if(gruppo==="g1"){
+                            punti1 += numero*4; // Aggiungi sommasingoli ai punti con doppioni
+                        }
+                        if(gruppo==="g2"){
+                            punti2 += numero*4; // Aggiungi sommasingoli ai punti con doppioni
+                        }
                     }else{
-                        sommasingoli += parseInt(numero);
+                        if(gruppo==="g1"){
+                            punti1+=numero;
+                        }
+                        if(gruppo==="g2"){
+                            punti2+=numero;
+                        }
                     }
-                }
-
-                // Stampa i risultati
-                if (doppioni.length > 0) {
-                    if(gruppo==="g1"){
-                        punti1 += doppioni.join(', ')*4; // Aggiungi sommasingoli ai punti con doppioni
+                    
                     }
-                    if(gruppo==="g2"){
-                        punti2 += doppioni.join(', ')*4; // Aggiungi sommasingoli ai punti con doppioni
-                    }
-                }
-
-                if (tris.length > 0) {
-                    if(gruppo==="g1"){
-                        punti1 += tris.join(', ')*9;
-                    }
-                    if(gruppo==="g2"){
-                        punti2 += tris.join(', ')*9;
-                    }
-                }
-
-                if (sommasingoli > 0) {
-                    if(gruppo==="g1"){
-                        punti1+=sommasingoli;
-                    }
-                    if(gruppo==="g2"){
-                        punti2+=sommasingoli;
-                    }
-                }
                 
             } else {
                 endgame = true;
@@ -93,20 +75,43 @@ function contapunti(){
         });
     });
     
-                
+    
     if (punti1 > punti2) {
+        giocatore1.style.borderColor = "yellow";
+        giocatore2.style.borderColor = "black";
         winner.textContent = "giocatore1";
         winner.style.display = "block"; // Corretto
     } else {
+        giocatore1.style.borderColor = "black";
+        giocatore2.style.borderColor = "yellow";
         winner.textContent = "giocatore2";
         winner.style.display = "block"; // Corretto
-    }
+    }           
     
 }
 
+function aggiorna(){
 
-function finegioco(){
+    numero = Math.floor(Math.random() * 6) + 1; // Genera un numero da 1 a 6
+    dado.textContent = numero;
     
+    // Aggiorna il bordo del giocatore corrente
+
+    if (currentPlayer==1){
+        giocatore1.style.borderColor = "green";
+        giocatore2.style.borderColor = "black";
+    }else{
+        giocatore1.style.borderColor = "black";
+        giocatore2.style.borderColor = "green";
+    }
+
+    // controlla se una delle due tabelle è piena
+    if(controllacasellevuote(currentPlayer)){
+        endgame = false;
+        contapunti();
+    }
+    
+    // Controlla se entrambe le tabelle sono piene
     let caselle1 = 0;
     let caselle2 = 0;
     
@@ -127,29 +132,6 @@ function finegioco(){
         endgame = false;
         contapunti();
     }
-}
-
-
-function generaNumero() {
-    numero = Math.floor(Math.random() * 6) + 1; // Genera un numero da 1 a 6
-    dado.textContent = numero;
-    return numero;
-}
-
-function aggiorna(){
-    
-    if (currentPlayer==1){
-        giocatore1.style.borderColor = "green";
-        giocatore2.style.borderColor = "black";
-    }else{
-        giocatore1.style.borderColor = "black";
-        giocatore2.style.borderColor = "green";
-    }
-    if(controllacasellevuote(currentPlayer)){
-        endgame = false;
-        contapunti();
-    }
-    
 }
 
 function assegnaNumero(elemento) {
@@ -177,22 +159,16 @@ function assegnaNumero(elemento) {
                     div.textContent = "";
                 }
             });
-        
-        finegioco()
-        generaNumero();
-        aggiorna();
-    
+            
     }else if (elemento.classList.contains('g2') && currentPlayer==2 && elemento.textContent == ""){
         elemento.textContent = numero; // Imposta il numero all'interno del quadrato cliccato
         currentPlayer = 1;
         const classi = elemento.classList;
         classi.forEach(classe => { 
-            
             if (classe!="quadrato" && classe!="g2"){
                 riga = classe.replace('r', '');
             }
         });
-        
         let classes = '.r'+riga+'.g1.quadrato';
         
         document.querySelectorAll(classes).forEach(div => {
@@ -203,16 +179,13 @@ function assegnaNumero(elemento) {
                 if (testo.includes(numero)) {
                     div.textContent = "";
                 }
-            });
-        
-        finegioco()
-        generaNumero();
-        aggiorna();
-        
+            }); 
     }
+
+    aggiorna();
     }
 }
 
-
-generaNumero();
 aggiorna();
+                    
+                    
