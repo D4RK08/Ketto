@@ -159,6 +159,7 @@ function assegnaNumero(elemento) {
                     div.textContent = "";
                 }
             });
+        aggiorna();
             
     }else if (elemento.classList.contains('g2') && currentPlayer==2 && elemento.textContent == ""){
         elemento.textContent = numero; // Imposta il numero all'interno del quadrato cliccato
@@ -180,9 +181,9 @@ function assegnaNumero(elemento) {
                     div.textContent = "";
                 }
             }); 
+        aggiorna();
     }
 
-    aggiorna();
     }
 }
 
