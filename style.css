@@ -15,7 +15,7 @@ html, body{
     display: flex;               /* Abilita il flexbox */
     justify-content: center;     /* Centra orizzontalmente */
     align-items: center;   
-    font-size: 36px; 
+    font-size: 50px; 
     width:80px;
     height:80px;
     background-color: white;
