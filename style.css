@@ -28,6 +28,7 @@ html, body{
     grid-template-columns: auto auto auto;
     padding: 10px;
     border: 8px solid black;
+    border-radius: 5px;
 }
 
 #giocatore1{
