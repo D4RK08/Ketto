@@ -1,6 +1,6 @@
-body{
+html, body{
     
-  height: 500px;  
+  height: 100%;  
   display: flex;
   justify-content: center; /* centra orizzontalmente */
   align-items: center;  
